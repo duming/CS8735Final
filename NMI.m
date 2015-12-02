@@ -1,4 +1,4 @@
-function v = MI(label, result)
+function v = NMI(label, result)
 % Nomalized mutual information
 % Written by Mo Chen (mochen@ie.cuhk.edu.hk). March 2009.
 assert(length(label) == length(result));
@@ -41,6 +41,9 @@ M = Ml'*Mr/n;
 Hlr = -sum( M(:) .* log2( M(:) + eps ) );
 
 % mutual information
-v = Hl + Hr - Hlr;
+MI = Hl + Hr - Hlr;
+
+% normalized mutual information
+v = sqrt((MI/Hl)*(MI/Hr)) ;
 
 end

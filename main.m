@@ -1,4 +1,9 @@
 function main()
+%     label = [1 1 1 1 1 2 2 2 2 2];
+%     result = [1 1 1 2 2 1 1 2 2 2];
+%     mi = MI(label,result);
+%     nmi = NMI(label,result);
+    
     %data=readData();
     data1=load('Activity Recognition from Single Chest-Mounted Accelerometer/15.csv');
     %7 labels
@@ -25,6 +30,10 @@ function main()
     f=featureGenerate(testdata);
     m1 = mean(f);
     
+    
+    
+    
+
 end
 
 

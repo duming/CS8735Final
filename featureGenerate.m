@@ -4,8 +4,10 @@
 %where m is the number of point generated and l is the dimension and m<=n
 %%
 function fdata=featureGenerate(rawdata)
-    blockLen=52;%block size
+    %block size
+    blockLen=52;
     [n,~]=size(rawdata);
+    %compute how many block
     endNum=n-blockLen;
     j=1;
     %return each block's feature
@@ -14,7 +16,7 @@ function fdata=featureGenerate(rawdata)
         j=j+1;
     end
 end
-
+%
 %%
 function f=featureBlock1(block)
     %discrete Fourier transform (DFT) of block
