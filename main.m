@@ -1,7 +1,15 @@
 function main()
+%     label = [1 1 1 1 1 2 2 2 2 2];
+%     result = [1 1 1 2 2 1 1 2 2 2];
+%     mi = MI(label,result);
+%     nmi = NMI(label,result);
+    
     %data=readData();
     data1=load('Activity Recognition from Single Chest-Mounted Accelerometer/15.csv');
+    %7 labels
     targets=[1,2,3,4,5,6,7];
+    %return the index returns an array containing the lowest absolute index 
+    %in the last column of input data 
     [~,idx]=ismember(targets,data1(:,5));
     idx=[idx length(data1(:,5))];
     
@@ -10,6 +18,7 @@ function main()
 %         testdata=data1(idx(i):idx(i+1),3);
 %         featureView(testdata(1:100),i)
 %     end
+
     
     %testdata=data1(idx(2):idx(2+1),2:4);
     %f=featureGenerate(testdata);
@@ -24,6 +33,8 @@ function main()
     idx=[idx,length(data(:,1))];
     clustering(data,idx);
     
+    
+
 end
 
 
@@ -43,12 +54,14 @@ end
 
 function featureView(sequence,i)
     figure(i)
+    %the first graph is the row data
     subplot(3,1,1)
     plot(sequence)
     Y=fft(sequence);
+    %the second graph is the result of Fourier transform
     subplot(3,1,2)
     plot(Y,'ro')
-    
+    %
     subplot(3,1,3)
     n = length(Y);
     power = abs(Y(1:floor(n/2))).^2;
