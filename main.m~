@@ -11,33 +11,18 @@ function main()
 %         featureView(testdata(1:100),i)
 %     end
     
-    %testdata=data1(idx(2):idx(2+1),2:4);
-    %f=featureGenerate(testdata);
-    %mean(f);
+    testdata=data1(idx(2):idx(2+1),2:4);
+    f=featureGenerate(testdata);
+    mean(f)
     
-    %testdata=data1(idx(1):idx(1+1),2:4);
+    testdata=data1(idx(1):idx(1+1),2:4);
     %f=featureGenerate(testdata);
     %mean(f)
     
-    data=getAllFeature(data1,idx);
-    [~,idx]=ismember(targets,data(:,end));
-    idx=[idx,length(data(:,1))];
-    clustering(data,idx);
-    
+    getLabel(
 end
 
 
-
-function data=getAllFeature(rawData,index)
-    n=length(index);
-    data=[];
-    for i=1:n-1
-        fdata=featureGenerate(rawData(index(i):index(i+1)-1,2:4));
-        [m,~]=size(fdata);
-        fdata=[fdata, ones(m,1)*i];
-        data=[data;fdata];
-    end
-end
 
 
 
@@ -57,8 +42,7 @@ function featureView(sequence,i)
     plot(freq,log(power))
 end
 
-%the index is the fisrt occurance of each type and the last element is the
-%length of the data
+
 function [data,index]=readData()
     data={};
     index={};

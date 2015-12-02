@@ -1,0 +1,35 @@
+%data is a cell array each cell contains datas of one person
+%index is also a cell array 
+%each index records the starting index of each label 
+%for example  1-index{1}{1} are all labeled as 1
+function clustering(data,index)
+    my_knn(data,index);
+end
+
+function label=getLabel(data)
+    label(:,1)=data(:,end);
+end
+
+
+%%first 90% as training the rest is testing
+function [training,testing]=splitData(data,index)
+    training=[];
+    testing=[];
+    ratio=0.9;
+    n=length(index-1)
+    for i=1:n-1
+        len=index(i+1)-index(i);
+        trn_len=floor(len*0.9);
+        training=[training;data(index(i):index(i)+trn_len,:)];
+        testing=[testing;data(index(i)+trn_len+1:index(i+1)-1,:)];
+    end
+    
+end
+
+
+function my_knn(data,index)
+    [tr,ts]=split(data,index);
+    mdl = fitcknn(data(:,1:end-1),data(:,end),'NumNeighbors',3);
+    cls=predict(mdl,ts);
+end
+

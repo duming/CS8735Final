@@ -1,3 +1,13 @@
+function data=getAllFeature(rawData,index)
+    n=length(index);
+    data=[];
+    for i=1:n-1
+        fdata=featureGenerate(rawData(index(i):index(i+1)-1,2:4));
+        [m,~]=size(fdata);
+        fdata=[fdata, ones(m,1)*i];
+        data=[data;
+    end
+end
 
 %%
 %input rawdata is a n-by-3 matrix
@@ -9,7 +19,7 @@ function fdata=featureGenerate(rawdata)
     [n,~]=size(rawdata);
     endNum=n-blockLen;
     j=1;
-    for i=1:10:endNum
+    for i=1:blockLen/2:endNum
         fdata(j,:)=featureBlock1(rawdata(i:i+blockLen-1,:));
         j=j+1;
     end
