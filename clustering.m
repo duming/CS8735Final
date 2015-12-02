@@ -16,7 +16,7 @@ function [training,testing]=splitData(data,index)
     training=[];
     testing=[];
     ratio=0.8;
-    n=length(index-1)
+    n=length(index)
     for i=1:n-1
         len=index(i+1)-index(i);
         trn_len=floor(len*ratio);
@@ -26,9 +26,18 @@ function [training,testing]=splitData(data,index)
     
 end
 
+function [training,testing]=randSplitData(data,index)
+    ratio=0.8;
+    [n,~]=size(data);
+    index=rand(n,1)>=ratio;
+    training=data(index,:);
+    testing=data(~index,:);
+end
+
 
 function my_knn(data,index)
-    [tr,ts]=splitData(data,index);
+    %[tr,ts]=splitData(data,index);
+    [tr,ts]=randSplitData(data,index);
     mdl = fitcknn(tr(:,1:end-1),tr(:,end),'NumNeighbors',5);
     cls=predict(mdl,ts(:,1:end-1));
     sum(cls==ts(:,end))/length(ts(:,1))
