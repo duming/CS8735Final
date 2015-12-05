@@ -5,13 +5,16 @@ function main()
 %     nmi = NMI(label,result);
     
     %data=readData();
-    data1=load('Activity Recognition from Single Chest-Mounted Accelerometer/15.csv');
+    %data1=load('Activity Recognition from Single Chest-Mounted Accelerometer/15.csv');
+    %data2=load('Activity Recognition from Single Chest-Mounted Accelerometer/14.csv');
     %7 labels
-    targets=[1,2,3,4,5,6,7];
+    %targets=[1,2,3,4,5,6,7];
     %return the index returns an array containing the lowest absolute index 
     %in the last column of input data 
-    [~,idx]=ismember(targets,data1(:,5));
-    idx=[idx length(data1(:,5))];
+    %[~,idx]=ismember(targets,data1(:,5));
+    %idx=[idx length(data1(:,5))];
+    
+    
     
     
 %     for i=1:4
@@ -28,26 +31,35 @@ function main()
     %f=featureGenerate(testdata);
     %mean(f)
     
-    data=getAllFeature(data1,idx);
-    [~,idx]=ismember(targets,data(:,end));
-    idx=[idx,length(data(:,1))];
-    clustering(data,idx);
+    [rawData,rawIdx]=readData();
+    n=length(rawIdx);
+    Data={};Idx={};
+    for i=1:2
+        [Data{i},Idx{i}]=getAllFeature(rawData{i},rawIdx{i});
+    end
     
+    [c,s,l]=pca(Data{1},'Centered',false);
+   
+    Data2{1}=Data{1}*c(:,1:7);
+    Data2{2}=Data{2}*c(:,1:7);
     
-
+    clustering(Data,Idx);
 end
 
 
 
-function data=getAllFeature(rawData,index)
+function [data,idx]=getAllFeature(rawData,index)
     n=length(index);
     data=[];
+    idx=ones(n,1);
     for i=1:n-1
         fdata=featureGenerate(rawData(index(i):index(i+1)-1,2:4));
         [m,~]=size(fdata);
         fdata=[fdata, ones(m,1)*i];
         data=[data;fdata];
+        idx(i+1)=m+idx(i);
     end
+    idx(end)=idx(end-1);
 end
 
 
