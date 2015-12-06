@@ -34,7 +34,7 @@ function main()
     [rawData,rawIdx]=readData();
     n=length(rawIdx);
     Data={};Idx={};
-    for i=1:2
+    for i=1:15
         [Data{i},Idx{i}]=getAllFeature(rawData{i},rawIdx{i});
     end
     
@@ -43,7 +43,7 @@ function main()
     Data2{1}=Data{1}*c(:,1:7);
     Data2{2}=Data{2}*c(:,1:7);
     
-    clustering(Data,Idx);
+    e=clustering(Data,Idx);
 end
 
 
