@@ -33,13 +33,14 @@ function f=featureBlock1(block)
     %the feathre 
     fq=[max(rslt_real) min(rslt_real) max(rslt_img) min(rslt_img)];
     minmax=max(block)-min(block);
+    m=mean(block);
     %n = length(rslt);
     %fq = abs(rslt(1:floor(n/2))).^2;
    % mn = mean(block);
    % kr = kurtosis(block);
    % sk = skewness(block);
    % f=[mn,kr,sk,fq];
-   f=[minmax,fq];
+   f=[minmax,fq,m];
 end
 
 %%

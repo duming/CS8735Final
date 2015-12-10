@@ -37,6 +37,17 @@ end
 %% one subject predict another subject
 function err=setting2(data,index)
     N=length(data);
+    
+    %%%pca%%%
+%     comb=cell2mat(data');
+%     [c,s,l]=pca(comb(:,1:end-1),'Centered',false);
+%     for i=1:N
+%         data{i}(:,1:7)=data{i}(:,1:end-1)*c(:,1:7);
+%         data{i}(:,8)=data{i}(:,end);
+%         data{i}=data{i}(:,1:8);
+%         
+%     end
+    %%%%
     for i=1:N
         train=[];
         for j=1:N
@@ -89,7 +100,7 @@ end
 function [cluster,error]=my_knn(tr,ts)
     %[tr,ts]=splitData(data,index);
     %[tr,ts]=randSplitData(data,index);
-    mdl = fitcknn(tr(:,1:end-1),tr(:,end),'NumNeighbors',4);
+    mdl = fitcknn(tr(:,1:end-1),tr(:,end),'NumNeighbors',1);
     cls=predict(mdl,ts(:,1:end-1));
     error=sum(cls==ts(:,end))/length(ts(:,1));
     cluster=cls;
@@ -111,7 +122,7 @@ end
 
 %%
 function [cluster,error]=my_fcm(tr,ts)
-    option=[4,100,NaN,1];
+    option=[4,100,NaN,0];
     [centers,U]=fcm(tr(:,1:end-1),7,option);
     
     [~,cluster]=max(U);

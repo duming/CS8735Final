@@ -38,10 +38,10 @@ function main()
         [Data{i},Idx{i}]=getAllFeature(rawData{i},rawIdx{i});
     end
     
-    [c,s,l]=pca(Data{1},'Centered',false);
+    %[c,s,l]=pca(Data{1},'Centered',false);
    
-    Data2{1}=Data{1}*c(:,1:7);
-    Data2{2}=Data{2}*c(:,1:7);
+    %Data2{1}=Data{1}*c(:,1:7);
+    %Data2{2}=Data{2}*c(:,1:7);
     
     e=clustering(Data,Idx);
 end
